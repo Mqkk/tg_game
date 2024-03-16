@@ -1,0 +1,45 @@
+.fraction {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    height: 100%;
+  }
+
+  &__infoTop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__img {
+    z-index: 1;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    transition: left 0.3s ease-in;
+
+    &OpenLeft {
+      z-index: 2;
+      left: calc(-100% - 10px);
+    }
+
+    &OpenRight {
+      z-index: 2;
+      left: calc(100% + 10px);
+    }
+  }
+}

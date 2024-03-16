@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 320px;
+  background-color: white;
+  font-family: "Muller", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  overflow: hidden auto;
+
+  &.overflow-hidden {
+    overflow: hidden;
+  }
+
+  &.overflow-Y-hidden {
+    overflow-y: hidden;
+  }
+}
+
+.app {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+
+  &:focus,
+  &:active {
+    text-decoration: none;
+  }
+}
+
+img {
+  height: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+ul {
+  list-style: none;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-scroll-y {
+  overflow-y: scroll;
+}
+
+html {
+  scroll-behavior: smooth;
+}
