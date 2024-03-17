@@ -1,19 +1,35 @@
 import { observer } from "mobx-react-lite";
 
-import { Selector } from "../../../../components/Selector";
-import { THairColorList } from "../../../../stores/domains/HairCharacter/types";
+import { useCreateCharacterStore } from "../../../../stores/domains/CreateCharacter";
+import { useHairCharacterStore } from "../../../../stores/domains/HairCharacter";
+import { useGenderStore } from "../../../../stores/domains/Genders";
 
-const HairColorList: THairColorList = [
-  { id: 1, value: "#000" },
-  { id: 2, value: "green" },
-  { id: 3, value: "blue" },
-  { id: 4, value: "yellow" },
-];
+import { Selector } from "../../../../components/Selector";
+import { Button } from "../../../../components/Button";
+
+import { CREATE_CHARACTER } from "../../../../constants";
+import styles from "./styles/index.module.scss";
 
 export const Appearance = observer(() => {
+  const { setHairColor, setHairType, setGender } = useCreateCharacterStore();
+  const { typeList, colorList } = useHairCharacterStore();
+  const { genderList } = useGenderStore();
+
   return (
-    <div>
-      <Selector options={HairColorList} />
+    <div className={styles.appearance}>
+      <div className={styles.appearance__img}>
+        <img src="" alt="" />
+      </div>
+      <div className={styles.appearance__settings}>
+        <div className={styles.appearance__selectors}>
+          <Selector options={genderList} setOption={setGender} />
+          <Selector options={colorList} setOption={setHairColor} />
+          <Selector options={typeList} setOption={setHairType} />
+        </div>
+        <div className={styles.appearance__btns}>
+          <Button onClick={() => {}}>{CREATE_CHARACTER}</Button>
+        </div>
+      </div>
     </div>
   );
 });

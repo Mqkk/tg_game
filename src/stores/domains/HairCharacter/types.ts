@@ -1,6 +1,9 @@
 import { TUniqueId } from "../../../types";
 
-export interface IHairCharacterStore {}
+export interface IHairCharacterStore {
+  colorList: THairColorList;
+  typeList: THairTypeList;
+}
 
 export interface IHairColor {
   id: TUniqueId;
@@ -9,7 +12,7 @@ export interface IHairColor {
 
 export interface IHairType {
   id: TUniqueId;
-  name: string;
+  value: string;
   image: string;
 }
 
