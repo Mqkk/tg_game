@@ -7,6 +7,16 @@ export type THairColor = "blue" | "green" | "black";
 export interface IUserStore {
   id: TUniqueId;
   name: string;
+  img: string;
   fraction: IFractionModel;
-  hair: { type: THairType; color: THairColor };
+  hair: IHair;
+  hp: number;
+  energy: number;
+  honor: number;
+  gold: number;
+}
+
+export interface IHair {
+  type: THairType;
+  color: THairColor;
 }

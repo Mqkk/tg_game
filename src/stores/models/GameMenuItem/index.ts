@@ -1,15 +1,17 @@
 import { makeAutoObservable } from "mobx";
 import { TUniqueId } from "../../../types";
-import { IFractionModel } from "./types";
+import { IGameMenuItemModel } from "./types";
 
-export class FractionModel implements IFractionModel {
+export class GameMenuItemModel implements IGameMenuItemModel {
   id: TUniqueId = "";
   name: string = "";
-  description: string = "";
   image: string = "";
+  link: string = "";
 
-  constructor() {
+  constructor(data: IGameMenuItemModel) {
     makeAutoObservable(this, {}, { autoBind: true });
+
+    this.setData(data);
   }
 
   setId(value: TUniqueId): void {
@@ -20,18 +22,18 @@ export class FractionModel implements IFractionModel {
     this.name = value;
   }
 
-  setDescription(value: string): void {
-    this.description = value;
+  setLink(value: string): void {
+    this.link = value;
   }
 
   setImage(value: string): void {
     this.image = value;
   }
 
-  setData(data: IFractionModel) {
+  setData(data: IGameMenuItemModel) {
     this.setId(data.id);
     this.setName(data.name);
-    this.setDescription(data.description);
+    this.setLink(data.link);
     this.setImage(data.image);
   }
 }

@@ -1,4 +1,5 @@
 import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
 
 import { useCreateCharacterStore } from "../../../../stores/domains/CreateCharacter";
 import { useHairCharacterStore } from "../../../../stores/domains/HairCharacter";
@@ -9,11 +10,13 @@ import { Button } from "../../../../components/Button";
 
 import { CREATE_CHARACTER } from "../../../../constants";
 import styles from "./styles/index.module.scss";
+import { SCREENS } from "../../../../navigation/endpoints";
 
 export const Appearance = observer(() => {
   const { setHairColor, setHairType, setGender } = useCreateCharacterStore();
   const { typeList, colorList } = useHairCharacterStore();
   const { genderList } = useGenderStore();
+  const navigate = useNavigate();
 
   return (
     <div className={styles.appearance}>
@@ -27,7 +30,9 @@ export const Appearance = observer(() => {
           <Selector options={typeList} setOption={setHairType} />
         </div>
         <div className={styles.appearance__btns}>
-          <Button onClick={() => {}}>{CREATE_CHARACTER}</Button>
+          <Button onClick={() => navigate(SCREENS.MAIN)}>
+            {CREATE_CHARACTER}
+          </Button>
         </div>
       </div>
     </div>

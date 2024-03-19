@@ -1,0 +1,25 @@
+.main {
+  &__header {
+    position: absolute;
+    padding: 5px;
+    width: 100%;
+  }
+
+  &__headerCenter {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__headerRight {
+    display: flex;
+    justify-content: end;
+  }
+
+  &__title {
+    display: inline-flex;
+    padding: 4px 8px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #fff;
+  }
+}
