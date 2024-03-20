@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+
 import { TUniqueId } from "../../../types";
 import { IFractionModel } from "./types";
 
@@ -8,8 +9,10 @@ export class FractionModel implements IFractionModel {
   description: string = "";
   image: string = "";
 
-  constructor() {
+  constructor(data: IFractionModel) {
     makeAutoObservable(this, {}, { autoBind: true });
+
+    this.setData(data);
   }
 
   setId(value: TUniqueId): void {

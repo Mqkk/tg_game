@@ -1,22 +1,13 @@
 import { TUniqueId } from "../../../types";
-import { IFractionModel } from "../../models/Fraction/types";
-
-export type THairType = "fisrt" | "second";
-export type THairColor = "blue" | "green" | "black";
+import { ICharacterModel } from "../../models/Character/types";
 
 export interface IUserStore {
   id: TUniqueId;
   name: string;
   img: string;
-  fraction: IFractionModel;
-  hair: IHair;
+  character?: ICharacterModel;
   hp: number;
   energy: number;
   honor: number;
   gold: number;
-}
-
-export interface IHair {
-  type: THairType;
-  color: THairColor;
 }

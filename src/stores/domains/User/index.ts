@@ -1,27 +1,31 @@
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
-import { FractionModel } from "../../models/Fraction";
+import { initializeCreateCharacterStore } from "../CreateCharacter";
+import { creatorCharacter } from "../../utils/creatorCharacter";
 
-import { IFractionModel } from "../../models/Fraction/types";
-import { IHair, IUserStore } from "./types";
+import { IUserStore } from "./types";
 import { TUniqueId } from "../../../types";
+import { ICharacterModel } from "../../models/Character/types";
+import { ICreateCharacterStore } from "../CreateCharacter/types";
 
 class UserStore implements IUserStore {
   id: TUniqueId = "1";
   name: string = "John";
   img: string = "/src/assets/icon.svg";
-  fraction: IFractionModel;
-  hair: IHair = { type: "fisrt", color: "black" };
+  character?: ICharacterModel;
   hp: number = 100;
   energy: number = 100;
   honor: number = 100;
   gold: number = 100;
 
+  createCharacterStore: ICreateCharacterStore;
+
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
 
-    this.fraction = new FractionModel();
+    this.createCharacterStore = initializeCreateCharacterStore();
+    this.character = creatorCharacter(this.createCharacterStore);
   }
 
   setId(value: TUniqueId) {
@@ -34,10 +38,6 @@ class UserStore implements IUserStore {
 
   setImg(value: string) {
     this.img = value;
-  }
-
-  setHair(value: IHair) {
-    this.hair = value;
   }
 
   setHp(value: number) {

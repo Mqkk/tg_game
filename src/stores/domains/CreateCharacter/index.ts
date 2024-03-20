@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { initializeFractionsStore } from "../Fractions";
 
-import { IHairColor, IHairType } from "../HairCharacter/types";
+import { IHair, IHairColor, IHairType } from "../HairCharacter/types";
 import { IFractionModel } from "../../models/Fraction/types";
 import { TNullable, TUniqueId } from "../../../types";
 import { IFractionsStore } from "../Fractions/types";
@@ -12,8 +12,7 @@ import { IGender } from "../Genders/types";
 
 class CreateCharacterStore implements ICreateCharacterStore {
   fraction: TNullable<IFractionModel> = null;
-  hairColor: TNullable<IHairColor> = null;
-  hairType: TNullable<IHairType> = null;
+  hair: IHair = { color: null, type: null };
   gender: TNullable<IGender> = null;
   fractionsStore: IFractionsStore;
 
@@ -35,12 +34,12 @@ class CreateCharacterStore implements ICreateCharacterStore {
     this.fraction = value;
   }
 
-  setHairType(value: IHairType) {
-    this.hairType = value;
+  setHairType(value: TNullable<IHairType>) {
+    this.hair.type = value;
   }
 
-  setHairColor(value: IHairColor) {
-    this.hairColor = value;
+  setHairColor(value: TNullable<IHairColor>) {
+    this.hair.color = value;
   }
 
   setGender(value: IGender) {

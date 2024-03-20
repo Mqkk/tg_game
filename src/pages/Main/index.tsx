@@ -1,4 +1,5 @@
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
 
 import { useLocationStore } from "../../stores/domains/Location";
 import { useUserStore } from "../../stores/domains/User";
@@ -11,15 +12,14 @@ import { Button } from "../../components/Button";
 import { CharacterInfo } from "./components/CharacterInfo";
 
 import styles from "./styles/index.module.scss";
-import { useState } from "react";
 
 interface IMainTitle {
   title?: string;
 }
 
 export const Main = observer(() => {
-  const { title, visual } = useLocationStore();
   const { img, name, hp, honor, energy, gold } = useUserStore();
+  const { title, visual } = useLocationStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickMenu = () => {

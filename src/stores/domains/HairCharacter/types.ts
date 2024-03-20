@@ -1,8 +1,13 @@
-import { TUniqueId } from "../../../types";
+import { TNullable, TUniqueId } from "../../../types";
 
 export interface IHairCharacterStore {
   colorList: THairColorList;
   typeList: THairTypeList;
+}
+
+export interface IHair {
+  type: TNullable<IHairType>;
+  color: TNullable<IHairColor>;
 }
 
 export interface IHairColor {
