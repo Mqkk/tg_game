@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { IHairCharacterStore, THairColorList, THairTypeList } from "./types";
 import { useState } from "react";
+
+import { IHairCharacterStore, THairColorList, THairTypeList } from "./types";
 
 class HairCharacterStore implements IHairCharacterStore {
   colorList: THairColorList = [

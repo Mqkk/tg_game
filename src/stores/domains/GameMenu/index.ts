@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { IGameMenuStore, TGameMenuList } from "./types";
 import { useState } from "react";
+
+import { IGameMenuStore, TGameMenuList } from "./types";
 
 class GameMenuStore implements IGameMenuStore {
   list: TGameMenuList = [

@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
-import { ILocationStore } from "./types";
 import { useState } from "react";
+
+import { ILocationStore } from "./types";
 import { TUniqueId } from "../../../types";
 
 class LocationStore implements ILocationStore {

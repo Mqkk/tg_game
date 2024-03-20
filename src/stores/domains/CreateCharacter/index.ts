@@ -14,6 +14,7 @@ class CreateCharacterStore implements ICreateCharacterStore {
   fraction: TNullable<IFractionModel> = null;
   hair: IHair = { color: null, type: null };
   gender: TNullable<IGender> = null;
+  
   fractionsStore: IFractionsStore;
 
   constructor() {

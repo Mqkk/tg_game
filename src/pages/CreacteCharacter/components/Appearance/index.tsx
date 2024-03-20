@@ -8,9 +8,10 @@ import { useGenderStore } from "../../../../stores/domains/Genders";
 import { Selector } from "../../../../components/Selector";
 import { Button } from "../../../../components/Button";
 
-import { CREATE_CHARACTER } from "../../../../constants";
-import styles from "./styles/index.module.scss";
 import { SCREENS } from "../../../../navigation/endpoints";
+import { CREATE_CHARACTER } from "../../../../constants";
+
+import styles from "./styles/index.module.scss";
 
 export const Appearance = observer(() => {
   const { setHairColor, setHairType, setGender } = useCreateCharacterStore();

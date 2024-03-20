@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
+
 import { IGender, IGenderStore } from "./types";
 
 class GenderStore implements IGenderStore {
@@ -10,6 +11,10 @@ class GenderStore implements IGenderStore {
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
+  }
+
+  setGenderList(value: IGender[]) {
+    this.genderList = value;
   }
 }
 
