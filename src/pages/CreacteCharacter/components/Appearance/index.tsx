@@ -14,7 +14,8 @@ import { CREATE_CHARACTER } from "../../../../constants";
 import styles from "./styles/index.module.scss";
 
 export const Appearance = observer(() => {
-  const { setHairColor, setHairType, setGender } = useCreateCharacterStore();
+  const { setHairColor, setHairType, setGender, hair, fraction } =
+    useCreateCharacterStore();
   const { typeList, colorList } = useHairCharacterStore();
   const { genderList } = useGenderStore();
   const navigate = useNavigate();
@@ -22,7 +23,16 @@ export const Appearance = observer(() => {
   return (
     <div className={styles.appearance}>
       <div className={styles.appearance__img}>
-        <img src="" alt="" />
+        <img
+          src={hair.type?.image}
+          alt={hair.type?.value}
+          className={styles.appearance__hair}
+        />
+        <img
+          src={fraction?.image}
+          alt={fraction?.name}
+          className={styles.appearance__fractionImg}
+        />
       </div>
       <div className={styles.appearance__settings}>
         <div className={styles.appearance__selectors}>

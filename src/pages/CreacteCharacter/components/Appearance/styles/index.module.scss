@@ -5,7 +5,22 @@
   height: 100%;
 
   &__img {
+    position: relative;
     background-color: gray;
+  }
+
+  &__hair {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10%;
+    margin: 0 auto;
+    width: 30%;
+  }
+
+  &__fractionImg {
+    width: 100%;
+    height: 100%;
   }
 
   &__settings {

@@ -6,8 +6,8 @@ import { IFractionModel } from "../../models/Fraction/types";
 
 class FractionsStore implements IFractionsStore {
   fractionsList: IFractionModel[] = [
-    { id: "1", name: "Фракция 1", description: "Описание фракции", image: "" },
-    { id: "2", name: "Фракция 2", description: "Описание фракции", image: "" },
+    { id: "1", name: "Фракция 1", description: "Описание фракции", image: "/src/assets/location.jpg" },
+    { id: "2", name: "Фракция 2", description: "Описание фракции", image: "/src/assets/location.jpg" },
   ];
 
   constructor() {
