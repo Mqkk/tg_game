@@ -1,0 +1,11 @@
+@import "variables.scss";
+
+@mixin regularText($color, $font-family: $font-family) {
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: $font-family;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  color: $color;
+}

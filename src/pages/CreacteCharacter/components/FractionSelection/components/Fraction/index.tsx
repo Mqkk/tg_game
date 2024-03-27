@@ -30,17 +30,16 @@ export const Fraction = observer(
 
     return (
       <div className={styles.fraction}>
-        <div
-          onClick={openFraction}
-          className={clsx(styles.fraction__img, {
-            [id === "1"
-              ? styles.fraction__imgOpenRight
-              : styles.fraction__imgOpenLeft]: isOpen,
-          })}
-        >
+        <div onClick={openFraction} className={clsx(styles.fraction__img)}>
           <img src={imgScr} className={styles.fraction__img} />
         </div>
-        <div className={styles.fraction__info}>
+        <div
+          className={clsx(styles.fraction__info, {
+            [id === "1"
+              ? styles.fraction__infoOpenRight
+              : styles.fraction__infoOpenLeft]: isOpen,
+          })}
+        >
           <div className={styles.fraction__infoTop}>
             <h2 className={styles.fraction__title}>{name}</h2>
             <p className={styles.fraction__descr}>{description}</p>
