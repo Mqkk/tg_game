@@ -1,4 +1,9 @@
 .location {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
   &__img {
     position: absolute;
     z-index: -2;
@@ -7,5 +12,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  &__objects {
+    display: grid;
+    align-items: end;
+    grid-template-columns: repeat(3, 1fr);
   }
 }

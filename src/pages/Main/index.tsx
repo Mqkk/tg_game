@@ -19,7 +19,7 @@ interface IMainTitle {
 
 export const Main = observer(() => {
   const { img, name, hp, honor, energy, gold } = useUserStore();
-  const { title, visual } = useLocationStore();
+  const { title, visual, objects } = useLocationStore();
   const [isOpen, setIsOpen] = useState(false);
 
   const onClickMenu = () => {
@@ -46,8 +46,8 @@ export const Main = observer(() => {
         childrenRight={<Button onClick={onClickMenu}>Меню</Button>}
       />
       <main className={styles.main}>
-        <section>
-          <Location visual={visual} />
+        <section className={styles.main__section}>
+          <Location visual={visual} objects={objects} />
           <GameMenu />
         </section>
       </main>

@@ -1,13 +1,14 @@
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
-import { ILocationStore } from "./types";
+import { ILocationStore, TObjectLocationList } from "./types";
 import { TUniqueId } from "../../../types";
 
 class LocationStore implements ILocationStore {
   id: TUniqueId = "1";
   title: string = "Стартовая локация";
   visual: string = "/src/assets/location.jpg";
+  objects: TObjectLocationList = [{ id: "1", img: "/src/assets/location.jpg" }];
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -23,6 +24,10 @@ class LocationStore implements ILocationStore {
 
   setVisual(value: string) {
     this.visual = value;
+  }
+
+  setObjects(value: TObjectLocationList) {
+    this.objects = value;
   }
 }
 
