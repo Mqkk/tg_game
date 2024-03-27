@@ -1,8 +1,7 @@
-import { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ROUTES } from "./routes";
 
-export const Navigation: FC = () => {
+export const Navigation = () => {
   return (
     <Routes>
       {ROUTES.map((route) => {

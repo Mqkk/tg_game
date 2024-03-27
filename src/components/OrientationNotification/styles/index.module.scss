@@ -1,0 +1,17 @@
+.orientation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    width: 100vw;
+    height: 100vh;
+
+    &__title {
+        text-align: center;
+        font-size: 20px;
+        line-height: 140%;
+    }
+}
