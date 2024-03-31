@@ -1,14 +1,18 @@
-import { TNullable, TUniqueId } from "../../../types";
-import { IFractionModel } from "../../models/Fraction/types";
-import { IGender } from "../Genders/types";
-import { IHair, IHairColor, IHairType } from "../HairCharacter/types";
-
+import { ICharacterAppearancePresetResponse } from "../../../interfaces/Character";
+import { TNullable } from "../../../types";
 export interface ICreateCharacterStore {
-  fraction: TNullable<IFractionModel>;
-  gender: TNullable<IGender>;
-  hair: IHair;
-  setGender(value: IGender): void;
-  setHairType(value: TNullable<IHairType>): void;
-  setHairColor(value: TNullable<IHairColor>): void;
-  onChooseFraction(fractionId: TUniqueId): void;
+  characterAppearancePreset: TNullable<TCharacterAppearancePreset>;
+  genderId: TNullable<number>;
+  fractionId: TNullable<number>;
+  hairTypeId: TNullable<number>;
+  hairColorId: TNullable<number>;
+  setGenderId(value: TNullable<number>): void;
+  setHairTypeId(value: TNullable<number>): void;
+  setHairColorId(value: TNullable<number>): void;
+  onChooseFraction(fractionId: TNullable<number>): void;
+  createCharacter(): void;
+  getCharacterAppearancePreset(): void;
 }
+
+export type TCharacterAppearancePreset =
+  ICharacterAppearancePresetResponse["data"];

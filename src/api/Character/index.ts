@@ -1,4 +1,4 @@
-import { ApiManager } from "../../helpers/apiMaganger";
+import { ApiManager } from "../../helpers/apiManager";
 
 import { CHARACTER, CHARACTER_APPEARANCE_PRESET } from "../../constants/api";
 
@@ -7,7 +7,7 @@ import {
   ICharacterResponse,
   ICharacterAppearancePresetResponse,
 } from "../../interfaces/Character";
-import { TResponseApi } from "../../helpers/apiMaganger/types";
+import { TResponseApi } from "../../helpers/apiManager/types";
 
 export async function getCharacter(): Promise<
   TResponseApi<ICharacterResponse>
@@ -41,7 +41,7 @@ export async function getCharacterAppearancePreset(
     {
       url: CHARACTER_APPEARANCE_PRESET,
       method: "GET",
-      data: { factionId, genderId, hairColorId, hairId },
+      params: { factionId, genderId, hairColorId, hairId },
     },
     true,
   );

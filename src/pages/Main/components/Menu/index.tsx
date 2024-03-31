@@ -1,9 +1,9 @@
+import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { SCREENS } from "../../../../navigation/endpoints";
 
 import styles from "./styles/index.module.scss";
-import clsx from "clsx";
 
 interface IProps {
   isOpen: boolean;

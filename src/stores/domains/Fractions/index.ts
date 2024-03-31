@@ -1,21 +1,38 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
+import { getFractionList } from "../../../api/Fraction";
+import { FractionModel } from "../../models/Fraction";
+
 import { IFractionsStore } from "./types";
 import { IFractionModel } from "../../models/Fraction/types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
+import { TFactionListResponse } from "../../../interfaces/Fraction";
 
 class FractionsStore implements IFractionsStore {
-  fractionsList: IFractionModel[] = [
-    { id: "1", name: "Фракция 1", description: "Описание фракции", image: "/src/assets/location.jpg" },
-    { id: "2", name: "Фракция 2", description: "Описание фракции", image: "/src/assets/location.jpg" },
-  ];
+  fractionList: IFractionModel[] = [];
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setFractionsList(value: IFractionModel[]) {
-    this.fractionsList = value;
+  setFractionList(value: IFractionModel[]) {
+    this.fractionList = value;
+  }
+
+  *getFractionList() {
+    try {
+      const response: TResponseApi<TFactionListResponse> =
+        yield getFractionList();
+      if (response?.data) {
+        this.setFractionList(
+          response.data.data.map((item) => new FractionModel(item)),
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 

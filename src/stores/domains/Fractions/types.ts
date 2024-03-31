@@ -1,5 +1,6 @@
 import { IFractionModel } from "../../models/Fraction/types";
 
 export interface IFractionsStore {
-  fractionsList: IFractionModel[];
+  fractionList: IFractionModel[];
+  getFractionList(): void;
 }

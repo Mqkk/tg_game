@@ -1,7 +1,8 @@
-import { IGameMenuItemModel } from "../../models/GameMenuItem/types";
+import { IMenuItem } from "../../../interfaces/Menu";
 
 export interface IGameMenuStore {
-  list: TGameMenuList;
+  menuList: IMenuItem[];
+  getMenuList(): void;
 }
 
-export type TGameMenuList = IGameMenuItemModel[];
+export type TGameMenuList = IMenuItem[];

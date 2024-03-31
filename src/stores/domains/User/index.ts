@@ -1,59 +1,71 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
 import { initializeCreateCharacterStore } from "../CreateCharacter";
-import { creatorCharacter } from "../../utils/creatorCharacter";
+import { CharacterModel } from "../../models/Character";
+
+import { getCharacter } from "../../../api/Character";
+import { getUser } from "../../../api/User";
 
 import { IUserStore } from "./types";
-import { TUniqueId } from "../../../types";
+import { IUserResponse } from "../../../interfaces/User";
 import { ICharacterModel } from "../../models/Character/types";
 import { ICreateCharacterStore } from "../CreateCharacter/types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
+import { ICharacterResponse } from "../../../interfaces/Character";
 
 class UserStore implements IUserStore {
-  id: TUniqueId = "1";
-  name: string = "John";
-  img: string = "/src/assets/icon.svg";
+  tgId: string = "";
+  tgLogin: string = "";
+  lastLogin: string = "";
   character?: ICharacterModel;
-  hp: number = 100;
-  energy: number = 100;
-  honor: number = 100;
-  gold: number = 100;
-
   createCharacterStore: ICreateCharacterStore;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
 
     this.createCharacterStore = initializeCreateCharacterStore();
-    this.character = creatorCharacter(this.createCharacterStore);
   }
 
-  setId(value: TUniqueId) {
-    this.id = value;
+  *getUser() {
+    try {
+      const response: TResponseApi<IUserResponse> = yield getUser();
+      if (response.data?.data) {
+        this.setTgId(response.data.data.tgId);
+        this.setLastLogin(response.data.data.lastLogin);
+        this.setTgLogin(response.data.data.tgLogin);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  setName(value: string) {
-    this.name = value;
+  *getCharacter() {
+    try {
+      const response: TResponseApi<ICharacterResponse> = yield getCharacter();
+      if (response.data !== null) {
+        this.setCharacter(new CharacterModel(response.data.data));
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  setImg(value: string) {
-    this.img = value;
+  setTgId(value: string) {
+    this.tgId = value;
   }
 
-  setHp(value: number) {
-    this.hp = value;
+  setTgLogin(value: string) {
+    this.tgLogin = value;
   }
 
-  setEnergy(value: number) {
-    this.energy = value;
+  setLastLogin(value: string) {
+    this.lastLogin = value;
   }
 
-  setHonor(value: number) {
-    this.honor = value;
-  }
-
-  setGold(value: number) {
-    this.gold = value;
+  setCharacter(value: CharacterModel) {
+    this.character = value;
   }
 }
 

@@ -1,4 +1,4 @@
-import { TResponseApi } from "../../../helpers/apiMaganger/types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
 
 export interface IAuthorizationStore {
   accessToken: string;

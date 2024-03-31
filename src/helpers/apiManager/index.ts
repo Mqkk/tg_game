@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-import { API } from "../../constants/api";
+import { API, TOKEN } from "../../constants/api";
 
 import { IAxiosInterceptorResponse, TResponseApi } from "./types";
 import { TNullable } from "../../types";
-
 
 const KEYS_STORAGE = {
   accessToken: "accessToken",
@@ -38,6 +37,7 @@ class Api implements IApiManager {
       timeout: 15000,
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       validateStatus: (status) => status < 500,
     });
@@ -47,6 +47,8 @@ class Api implements IApiManager {
     const token = Api._readAccessToken();
     if (token) {
       this._instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    } else {
+      this._instance.defaults.headers.common.Authorization = `Bearer ${TOKEN}`;
     }
   }
 

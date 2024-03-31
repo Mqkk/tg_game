@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { useCreateCharacterStore } from "../../stores/domains/CreateCharacter";
 import { useFractionsStore } from "../../stores/domains/Fractions";
@@ -10,10 +10,14 @@ import { Appearance } from "./components/Appearance";
 import styles from "./styles/index.module.scss";
 
 export const CreateCharacter = observer(() => {
-  const { fraction, onChooseFraction } = useCreateCharacterStore();
-  const { fractionsList } = useFractionsStore();
+  const { fractionId, onChooseFraction } = useCreateCharacterStore();
+  const { fractionList, getFractionList } = useFractionsStore();
 
-  const isFractionSelect = useMemo(() => Boolean(fraction), [fraction]);
+  useEffect(() => {
+    getFractionList();
+  }, [getFractionList]);
+
+  const isFractionSelect = useMemo(() => Boolean(fractionId), [fractionId]);
 
   return (
     <main className={styles.createCharacter}>
@@ -22,7 +26,7 @@ export const CreateCharacter = observer(() => {
           <Appearance />
         ) : (
           <FractionSelection
-            fractions={fractionsList}
+            fractions={fractionList}
             onChooseFraction={onChooseFraction}
           />
         )}

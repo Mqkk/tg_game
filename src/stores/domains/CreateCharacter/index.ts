@@ -1,50 +1,102 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
 import { initializeFractionsStore } from "../Fractions";
 
-import { IHair, IHairColor, IHairType } from "../HairCharacter/types";
-import { IFractionModel } from "../../models/Fraction/types";
-import { TNullable, TUniqueId } from "../../../types";
+import {
+  ICharacterRequest,
+  ICharacterAppearancePresetResponse,
+} from "../../../interfaces/Character";
+import {
+  postCharacter,
+  getCharacterAppearancePreset,
+} from "../../../api/Character";
+import { TNullable } from "../../../types";
 import { IFractionsStore } from "../Fractions/types";
-import { ICreateCharacterStore } from "./types";
-import { IGender } from "../Genders/types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
+import { ICreateCharacterStore, TCharacterAppearancePreset } from "./types";
 
 class CreateCharacterStore implements ICreateCharacterStore {
-  fraction: TNullable<IFractionModel> = null;
-  hair: IHair = { color: null, type: null };
-  gender: TNullable<IGender> = null;
-  
+  fractionId: TNullable<number> = null;
+  hairColorId: TNullable<number> = 1;
+  hairTypeId: TNullable<number> = 1;
+  genderId: TNullable<number> = 1;
+
+  characterAppearancePreset: TNullable<TCharacterAppearancePreset> = null;
+
   fractionsStore: IFractionsStore;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
 
     this.fractionsStore = initializeFractionsStore();
+    this.fractionsStore.getFractionList();
   }
 
-  onChooseFraction(fractionId: TUniqueId): void {
-    const selectedFraction = this.fractionsStore.fractionsList.find(
+  *getCharacterAppearancePreset() {
+    try {
+      const response: TResponseApi<ICharacterAppearancePresetResponse> =
+        yield getCharacterAppearancePreset(
+          this.fractionId ?? 0,
+          this.hairColorId ?? 0,
+          this.hairTypeId ?? 0,
+          this.genderId ?? 0,
+        );
+      if (response.data !== null) {
+        this.setCharacterAppearancePreset(response.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  *createCharacter() {
+    try {
+      const response: TResponseApi<ICharacterRequest> = yield postCharacter({
+        factionId: this.fractionId ?? 0,
+        hairColorId: this.hairColorId ?? 0,
+        hairId: this.hairTypeId ?? 0,
+        genderId: this.genderId ?? 0,
+      });
+
+      if (response) {
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  onChooseFraction(fractionId: TNullable<number>): void {
+    const selectedFraction = this.fractionsStore.fractionList.find(
       (fraction) => fraction.id === fractionId,
     );
 
-    selectedFraction && this.setFraction(selectedFraction);
+    selectedFraction && this.setFractionId(selectedFraction.id);
   }
 
-  setFraction(value: IFractionModel) {
-    this.fraction = value;
+  setCharacterAppearancePreset(value: TNullable<TCharacterAppearancePreset>) {
+    this.characterAppearancePreset = value;
   }
 
-  setHairType(value: TNullable<IHairType>) {
-    this.hair.type = value;
+  setFractionId(value: TNullable<number>) {
+    this.fractionId = value;
   }
 
-  setHairColor(value: TNullable<IHairColor>) {
-    this.hair.color = value;
+  setHairTypeId(value: TNullable<number>) {
+    this.hairTypeId = value;
+    this.getCharacterAppearancePreset();
   }
 
-  setGender(value: IGender) {
-    this.gender = value;
+  setHairColorId(value: TNullable<number>) {
+    this.hairColorId = value;
+    this.getCharacterAppearancePreset();
+  }
+
+  setGenderId(value: TNullable<number>) {
+    this.genderId = value;
+    this.getCharacterAppearancePreset();
   }
 }
 

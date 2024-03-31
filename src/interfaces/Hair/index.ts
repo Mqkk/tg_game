@@ -1,4 +1,6 @@
-export type THairTypeListResponse = IHairType[];
+export interface IHairTypeListResponse {
+  data: IHairType[];
+}
 
 export interface IHairType {
   id: number;
@@ -6,7 +8,9 @@ export interface IHairType {
   code: string;
 }
 
-export type THairColorListResponse = IHairColor[];
+export interface IHairColorListResponse {
+  data: IHairColor[];
+}
 
 export interface IHairColor {
   id: number;

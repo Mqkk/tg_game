@@ -1,35 +1,59 @@
 import { makeAutoObservable } from "mobx";
 
-import { FractionModel } from "../Fraction";
-
-import { IHair } from "../../domains/HairCharacter/types";
-import { IGender } from "../../domains/Genders/types";
-import { IFractionModel } from "../Fraction/types";
-import { TNullable } from "../../../types";
 import { ICharacterModel } from "./types";
 
 export class CharacterModel implements ICharacterModel {
-  fraction: IFractionModel;
-  gender: TNullable<IGender> = null;
-  hair: TNullable<IHair> = null;
+  id: number = 0;
+  name: string = "";
+  balance: number = 0;
+  experience: number = 0;
+  hp: number = 0;
+  valor: number = 0;
+  appearance = {
+    assetPath: "",
+  };
 
-  constructor(data: IFractionModel, gender: IGender, hair: IHair) {
+  constructor(data: ICharacterModel) {
     makeAutoObservable(this, {}, { autoBind: true });
 
-    this.setData(hair, gender);
-    this.fraction = new FractionModel(data);
+    this.setData(data);
   }
 
-  setGender(value: TNullable<IGender>) {
-    this.gender = value;
+  setId(value: number) {
+    this.id = value;
   }
 
-  setHair(value: TNullable<IHair>) {
-    this.hair = value;
+  setName(value: string) {
+    this.name = value;
   }
 
-  setData(hair: IHair, gender: IGender) {
-    this.setGender(gender);
-    this.setHair(hair);
+  setBalance(value: number) {
+    this.balance = value;
+  }
+
+  setExperience(value: number) {
+    this.experience = value;
+  }
+
+  setHp(value: number) {
+    this.hp = value;
+  }
+
+  setValor(value: number) {
+    this.valor = value;
+  }
+
+  setAppearance(value: string) {
+    this.appearance.assetPath = value;
+  }
+
+  setData(data: ICharacterModel) {
+    this.setId(data.id);
+    this.setName(data.name);
+    this.setBalance(data.balance);
+    this.setExperience(data.experience);
+    this.setHp(data.hp);
+    this.setValor(data.valor);
+    this.setAppearance(data.appearance.assetPath);
   }
 }

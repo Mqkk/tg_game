@@ -1,8 +1,7 @@
-import { TUniqueId } from "../../../types";
-
 export interface IFractionModel {
-  id: TUniqueId;
+  id: number;
   name: string;
+  code: string;
   description: string;
-  image: string;
+  assetPath: string;
 }

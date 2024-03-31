@@ -1,8 +1,7 @@
-import { TUniqueId } from "../../../types";
-
 export interface IGameMenuItemModel {
-  id: TUniqueId;
+  id: number;
   name: string;
-  image: string;
+  assetPath: string;
+  code: string;
   link: string;
 }

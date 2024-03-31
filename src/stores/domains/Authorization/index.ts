@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
 import { IAuthorizationStore } from "./types";
-import { TResponseApi } from "../../../helpers/apiMaganger/types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
 
 class AuthorizationStore implements IAuthorizationStore {
   accessToken: string = "";

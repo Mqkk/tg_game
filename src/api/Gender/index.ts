@@ -1,14 +1,14 @@
-import { ApiManager } from "../../helpers/apiMaganger";
+import { ApiManager } from "../../helpers/apiManager";
 
 import { GENDER_LIST } from "../../constants/api";
 
-import { TResponseApi } from "../../helpers/apiMaganger/types";
-import { TGenderListResponse } from "../../interfaces/Gender";
+import { TResponseApi } from "../../helpers/apiManager/types";
+import { IGenderListResponse } from "../../interfaces/Gender";
 
 export async function getGenderList(): Promise<
-  TResponseApi<TGenderListResponse>
+  TResponseApi<IGenderListResponse>
 > {
-  return await ApiManager.request<TGenderListResponse>(
+  return await ApiManager.request<IGenderListResponse>(
     {
       url: GENDER_LIST,
       method: "GET",

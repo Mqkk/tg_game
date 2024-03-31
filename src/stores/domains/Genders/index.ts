@@ -1,20 +1,33 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
-import { IGender, IGenderStore } from "./types";
+import { getGenderList } from "../../../api/Gender";
+
+import { IGenderStore, TGenderList } from "./types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
+import { IGenderListResponse } from "../../../interfaces/Gender";
 
 class GenderStore implements IGenderStore {
-  genderList: IGender[] = [
-    { id: 1, value: "Мужчина" },
-    { id: 2, value: "Женщина" },
-  ];
+  genderList: TGenderList = [];
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setGenderList(value: IGender[]) {
+  setGenderList(value: TGenderList) {
     this.genderList = value;
+  }
+
+  *getGenderList() {
+    try {
+      const response: TResponseApi<IGenderListResponse> = yield getGenderList();
+      if (response.data !== null) {
+        this.setGenderList(response.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 

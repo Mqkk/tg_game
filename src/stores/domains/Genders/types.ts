@@ -1,10 +1,8 @@
-import { TUniqueId } from "../../../types";
+import { IGender } from "../../../interfaces/Gender";
 
 export interface IGenderStore {
-  genderList: IGender[];
+  genderList: TGenderList;
+  getGenderList(): void;
 }
 
-export interface IGender {
-  id: TUniqueId;
-  value: string;
-}
+export type TGenderList = IGender[];

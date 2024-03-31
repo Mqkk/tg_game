@@ -1,4 +1,6 @@
-export type TMenuItemListResponse = IMenuItem[];
+export interface IMenuItemListResponse {
+  data: IMenuItem[];
+}
 
 export interface IMenuItem {
   id: number;

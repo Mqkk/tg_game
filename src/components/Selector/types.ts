@@ -1,8 +1,6 @@
-import { TUniqueId } from "../../types";
-
 export interface ISelectorItem {
-  id: TUniqueId;
-  value: string;
+  id: number;
+  name: string;
 }
 
 export type TSelectorList = ISelectorItem[];

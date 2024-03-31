@@ -1,8 +1,8 @@
-import { ApiManager } from "../../helpers/apiMaganger";
+import { ApiManager } from "../../helpers/apiManager";
 
 import { FRACTION_LIST } from "../../constants/api";
 
-import { TResponseApi } from "../../helpers/apiMaganger/types";
+import { TResponseApi } from "../../helpers/apiManager/types";
 import { TFactionListResponse } from "../../interfaces/Fraction";
 
 export async function getFractionList(): Promise<

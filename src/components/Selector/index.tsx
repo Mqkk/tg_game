@@ -5,14 +5,14 @@ import clsx from "clsx";
 import { Button } from "../Button";
 
 import { BACK, FORWARD } from "../../constants";
-import { ISelectorItem, TSelectorList } from "./types";
+import { TSelectorList } from "./types";
 
 import styles from "./styles/index.module.scss";
 
 interface IProps {
   className?: string;
   options: TSelectorList;
-  setOption(value: ISelectorItem): void;
+  setOption(id: number): void;
 }
 
 export const Selector = observer(
@@ -20,7 +20,7 @@ export const Selector = observer(
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const selectOption = () => {
-      setOption(options[selectedIndex]);
+      setOption(options[selectedIndex]?.id);
     };
 
     const handleNext = () => {
@@ -43,7 +43,7 @@ export const Selector = observer(
           {BACK}
         </Button>
         <span className={styles.selector__value}>
-          {options[selectedIndex].value}
+          {options[selectedIndex]?.name}
         </span>
         <Button className={styles.selector__button} onClick={handleNext}>
           {FORWARD}

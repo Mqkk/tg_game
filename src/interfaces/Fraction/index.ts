@@ -1,4 +1,6 @@
-export type TFactionListResponse = IFaction[];
+export type TFactionListResponse = {
+  data: IFaction[];
+};
 
 export interface IFaction {
   id: number;

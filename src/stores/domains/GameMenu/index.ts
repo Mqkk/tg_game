@@ -1,60 +1,36 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
+import { getMenu } from "../../../api/Menu";
+import { GameMenuItemModel } from "../../models/GameMenuItem";
+
 import { IGameMenuStore, TGameMenuList } from "./types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
+import { IMenuItemListResponse } from "../../../interfaces/Menu";
 
 class GameMenuStore implements IGameMenuStore {
-  list: TGameMenuList = [
-    {
-      id: "1",
-      name: "Рюкзак",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-    {
-      id: "2",
-      name: "Локация",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-    {
-      id: "3",
-      name: "Персонаж",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-    {
-      id: "4",
-      name: "Поле битв",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-    {
-      id: "6",
-      name: "Карта",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-    {
-      id: "7",
-      name: "События",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-    {
-      id: "8",
-      name: "Аукцион",
-      image: "/src/assets/icon.svg",
-      link: "",
-    },
-  ];
+  menuList: TGameMenuList = [];
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setList(value: TGameMenuList) {
-    this.list = value;
+  setMenuList(value: TGameMenuList) {
+    this.menuList = value;
+  }
+
+  *getMenuList() {
+    try {
+      const response: TResponseApi<IMenuItemListResponse> = yield getMenu();
+      if (response.data !== null) {
+        this.setMenuList(
+          response.data.data.map((item) => new GameMenuItemModel(item, "/")),
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 }
 

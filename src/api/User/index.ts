@@ -1,8 +1,8 @@
-import { ApiManager } from "../../helpers/apiMaganger";
+import { ApiManager } from "../../helpers/apiManager";
 
 import { USER } from "../../constants/api";
 
-import { TResponseApi } from "../../helpers/apiMaganger/types";
+import { TResponseApi } from "../../helpers/apiManager/types";
 import { IUserResponse } from "../../interfaces/User";
 
 export async function getUser(): Promise<TResponseApi<IUserResponse>> {

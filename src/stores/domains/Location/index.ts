@@ -1,33 +1,94 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
-import { ILocationStore, TObjectLocationList } from "./types";
-import { TUniqueId } from "../../../types";
+import {
+  getLocationById,
+  getLocationObjectById,
+  getAvailableLocationList,
+} from "../../../api/Location";
+import { LocationModel } from "../../models/Location";
+import { LocationObjectModel } from "../../models/LocationObject";
+
+import {
+  ILocation,
+  ILocationResponse,
+  ILocationObjectListResponse,
+  IAvailableLocationListResponse,
+} from "../../../interfaces/Location";
+import { ILocationStore } from "./types";
+import { ILocationModel } from "../../models/Location/types";
+import { TResponseApi } from "../../../helpers/apiManager/types";
+import { ILocationObjectModel } from "../../models/LocationObject/types";
 
 class LocationStore implements ILocationStore {
-  id: TUniqueId = "1";
-  title: string = "Стартовая локация";
-  visual: string = "/src/assets/location.jpg";
-  objects: TObjectLocationList = [{ id: "1", img: "/src/assets/location.jpg" }];
+  objectList: ILocationObjectModel[] = [];
+  locationList: ILocationModel[] = [];
+  location?: ILocation;
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  setId(value: TUniqueId) {
-    this.id = value;
+  *getObjectList(locationId: number) {
+    try {
+      const response: TResponseApi<ILocationObjectListResponse> =
+        yield getLocationObjectById(locationId);
+      if (response.data !== null) {
+        this.setObjectList(
+          response.data.data.map((item) => new LocationObjectModel(item)),
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  setTitle(value: string) {
-    this.title = value;
+  *getLocationList() {
+    try {
+      const response: TResponseApi<IAvailableLocationListResponse> =
+        yield getAvailableLocationList();
+      if (response.data !== null) {
+        this.setLocationList(
+          response.data.data.map((item) => new LocationModel(item)),
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  setVisual(value: string) {
-    this.visual = value;
+  *getLocation(id: number) {
+    try {
+      const response: TResponseApi<ILocationResponse> =
+        yield getLocationById(id);
+      if (response.data !== null) {
+        this.setLocation(response.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  setObjects(value: TObjectLocationList) {
-    this.objects = value;
+  *init() {
+    yield this.getLocationList();
+    yield this.getLocation(this.locationList[0].id);
+
+    if (this.location) {
+      yield this.getObjectList(this.location?.id);
+    }
+  }
+
+  setLocationList(value: ILocationModel[]) {
+    this.locationList = value;
+  }
+
+  setObjectList(value: ILocationObjectModel[]) {
+    this.objectList = value;
+  }
+
+  setLocation(value: ILocation) {
+    this.location = value;
   }
 }
 

@@ -1,24 +1,51 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
+import { getHairColorList, getHairTypeList } from "../../../api/Hair";
+
+import {
+  IHairTypeListResponse,
+  IHairColorListResponse,
+} from "../../../interfaces/Hair";
+import { TResponseApi } from "../../../helpers/apiManager/types";
 import { IHairCharacterStore, THairColorList, THairTypeList } from "./types";
 
 class HairCharacterStore implements IHairCharacterStore {
-  colorList: THairColorList = [
-    { id: 1, value: "#000" },
-    { id: 2, value: "green" },
-    { id: 3, value: "blue" },
-    { id: 4, value: "yellow" },
-  ];
-  typeList: THairTypeList = [
-    { id: 1, value: "HairName 1", image: "" },
-    { id: 2, value: "HairName 2", image: "" },
-    { id: 3, value: "HairName 3", image: "" },
-    { id: 4, value: "HairName 4", image: "" },
-  ];
+  colorList: THairColorList = [];
+  typeList: THairTypeList = [];
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
+  }
+
+  *getHairType() {
+    try {
+      const response: TResponseApi<IHairTypeListResponse> =
+        yield getHairTypeList();
+      if (response.data !== null) {
+        this.setTypeList(response.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  *getHairColor() {
+    try {
+      const response: TResponseApi<IHairColorListResponse> =
+        yield getHairColorList();
+      if (response.data !== null) {
+        this.setColorList(response.data.data);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  *init() {
+    yield this.getHairType();
+    yield this.getHairColor();
   }
 
   setColorList(value: THairColorList) {

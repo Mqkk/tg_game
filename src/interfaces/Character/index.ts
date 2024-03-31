@@ -1,13 +1,5 @@
 export interface ICharacterResponse {
-  id: number;
-  name: string;
-  balance: string;
-  experience: string;
-  hp: string;
-  valor: string;
-  appearance: {
-    assetPath: string;
-  };
+  data: ICharacter;
 }
 
 export interface ICharacterRequest {
@@ -18,10 +10,24 @@ export interface ICharacterRequest {
 }
 
 export interface ICharacterAppearancePresetResponse {
+  data: {
+    id: number;
+    factionId: number;
+    genderId: number;
+    hairId: number;
+    hairColorId: number;
+    assetPath: string;
+  };
+}
+
+export interface ICharacter {
   id: number;
-  factionId: number;
-  genderId: number;
-  hairId: number;
-  hairColorId: number;
-  assetPath: string;
+  name: string;
+  balance: number;
+  experience: number;
+  hp: number;
+  valor: number;
+  appearance: {
+    assetPath: string;
+  };
 }

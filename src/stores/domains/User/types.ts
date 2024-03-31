@@ -1,13 +1,10 @@
-import { TUniqueId } from "../../../types";
 import { ICharacterModel } from "../../models/Character/types";
 
 export interface IUserStore {
-  id: TUniqueId;
-  name: string;
-  img: string;
+  tgId: string;
+  tgLogin: string;
+  lastLogin: string;
   character?: ICharacterModel;
-  hp: number;
-  energy: number;
-  honor: number;
-  gold: number;
+  getCharacter(): void;
+  getUser(): void;
 }

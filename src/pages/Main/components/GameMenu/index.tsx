@@ -1,4 +1,5 @@
 import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
 
 import { useGameMenuStore } from "../../../../stores/domains/GameMenu";
 import { Button } from "../../../../components/Button";
@@ -6,20 +7,26 @@ import { Button } from "../../../../components/Button";
 import styles from "./styles/index.module.scss";
 
 export const GameMenu = observer(() => {
-  const { list } = useGameMenuStore();
+  const { menuList, getMenuList } = useGameMenuStore();
+
+  useEffect(() => {
+    getMenuList();
+  }, [getMenuList]);
+
+  console.log(menuList)
 
   return (
     <div className={styles.gameMenu}>
       <ul className={styles.gameMenu__list}>
-        {list.map((menuItem) => (
-          <li className={styles.gameMenu__item} key={menuItem.id}>
+        {menuList.map((item) => (
+          <li className={styles.gameMenu__item} key={item.id}>
             <Button className={styles.gameMenu__button}>
               <img
                 className={styles.gameMenu__img}
-                src={menuItem.image}
-                alt={menuItem.name}
+                src={item.assetPath}
+                alt={item.name}
               />
-              <span className={styles.gameMenu__name}>{menuItem.name}</span>
+              <span className={styles.gameMenu__name}>{item.name}</span>
             </Button>
           </li>
         ))}

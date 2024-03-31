@@ -1,11 +1,10 @@
 export interface ILocationResponse {
-  id: number;
-  name: string;
-  type: string;
-  assetPath: string;
+  data: ILocation;
 }
 
-export type TAvailableLocationListResponse = IAvailableLocation[];
+export interface IAvailableLocationListResponse {
+  data: IAvailableLocation[];
+}
 
 export interface IAvailableLocation {
   id: number;
@@ -13,9 +12,18 @@ export interface IAvailableLocation {
   type: string;
 }
 
-export type TLocationObjectListResponse = ILocationObject[];
+export interface ILocationObjectListResponse {
+  data: ILocationObject[];
+}
 
 export interface ILocationObject {
+  id: number;
+  name: string;
+  type: string;
+  assetPath: string;
+}
+
+export interface ILocation {
   id: number;
   name: string;
   type: string;

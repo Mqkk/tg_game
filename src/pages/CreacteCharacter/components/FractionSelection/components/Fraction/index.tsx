@@ -4,16 +4,15 @@ import { useState } from "react";
 
 import { Button } from "../../../../../../components/Button";
 import { BACK, CHOOSE } from "../../../../../../constants";
-import { TUniqueId } from "../../../../../../types";
 
 import styles from "./styles/index.module.scss";
 
 interface IProps {
-  id: TUniqueId;
+  id: number;
   name: string;
   imgScr: string;
   description: string;
-  onChooseFraction: (id: TUniqueId) => void;
+  onChooseFraction: (id: number) => void;
 }
 
 export const Fraction = observer(
@@ -35,7 +34,7 @@ export const Fraction = observer(
         </div>
         <div
           className={clsx(styles.fraction__info, {
-            [id === "1"
+            [id === 1
               ? styles.fraction__infoOpenRight
               : styles.fraction__infoOpenLeft]: isOpen,
           })}

@@ -1,4 +1,6 @@
-export type TGenderListResponse = IGender[];
+export interface IGenderListResponse {
+  data: IGender[];
+}
 
 export interface IGender {
   id: number;

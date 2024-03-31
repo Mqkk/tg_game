@@ -1,15 +1,10 @@
-import { TUniqueId } from "../../../types";
+import { ILocation } from "../../../interfaces/Location";
+import { ILocationModel } from "../../models/Location/types";
+import { ILocationObjectModel } from "../../models/LocationObject/types";
 
 export interface ILocationStore {
-  id: TUniqueId;
-  title: string;
-  visual: string;
-  objects: TObjectLocationList;
-}
-
-export type TObjectLocationList = IObjectLocation[];
-
-export interface IObjectLocation {
-  id: TUniqueId;
-  img: string;
+  locationList: ILocationModel[];
+  objectList: ILocationObjectModel[];
+  location?: ILocation;
+  init(): void;
 }

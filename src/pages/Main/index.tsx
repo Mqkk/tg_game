@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useLocationStore } from "../../stores/domains/Location";
 import { useUserStore } from "../../stores/domains/User";
@@ -18,9 +18,14 @@ interface IMainTitle {
 }
 
 export const Main = observer(() => {
-  const { img, name, hp, honor, energy, gold } = useUserStore();
-  const { title, visual, objects } = useLocationStore();
+  const { location, objectList, init } = useLocationStore();
+  const { character, getCharacter } = useUserStore();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    init();
+    getCharacter();
+  }, [init, getCharacter]);
 
   const onClickMenu = () => {
     setIsOpen(!isOpen);
@@ -34,20 +39,20 @@ export const Main = observer(() => {
         classRight={styles.main__headerRight}
         childrenLeft={
           <CharacterInfo
-            hp={hp}
-            img={img}
-            name={name}
-            gold={gold}
-            honor={honor}
-            energy={energy}
+            hp={character?.hp}
+            name={character?.name}
+            valor={character?.valor}
+            balance={character?.balance}
+            experience={character?.experience}
+            assetPath={character?.appearance.assetPath}
           />
         }
-        childrenCenter={<MainTitle title={title} />}
+        childrenCenter={<MainTitle title={location?.name} />}
         childrenRight={<Button onClick={onClickMenu}>Меню</Button>}
       />
       <main className={styles.main}>
         <section className={styles.main__section}>
-          <Location visual={visual} objects={objects} />
+          <Location assetPath={location?.assetPath} objectList={objectList} />
           <GameMenu />
         </section>
       </main>
