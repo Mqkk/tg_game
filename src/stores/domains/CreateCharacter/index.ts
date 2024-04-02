@@ -39,9 +39,9 @@ class CreateCharacterStore implements ICreateCharacterStore {
       const response: TResponseApi<ICharacterAppearancePresetResponse> =
         yield getCharacterAppearancePreset(
           this.fractionId ?? 0,
+          this.genderId ?? 0,
           this.hairColorId ?? 0,
           this.hairTypeId ?? 0,
-          this.genderId ?? 0,
         );
       if (response.data !== null) {
         this.setCharacterAppearancePreset(response.data.data);

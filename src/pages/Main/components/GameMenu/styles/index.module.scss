@@ -1,3 +1,5 @@
+@import '/src/styles/index';
+
 .gameMenu {
   position: absolute;
   left: 0;
@@ -6,24 +8,26 @@
 
   &__list {
     display: flex;
+    border-radius: $border-radius;
+    background-color: $bg-main;
   }
 
   &__item {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
+    width: 75px;
   }
 
   &__button {
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     border: none;
-    padding: 10px;
+    padding: 5px;
     width: 100%;
-    background-color: #fff;
+    background-color: inherit;
   }
 
   &__img {

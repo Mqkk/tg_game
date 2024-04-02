@@ -1,5 +1,12 @@
 import { observer } from "mobx-react-lite";
 
+import {
+  IconCoin,
+  IconHeart,
+  IconShield,
+  IconLightning,
+} from "../../../../helpers/icons";
+
 import styles from "./styles/index.module.scss";
 
 interface IProps {
@@ -28,12 +35,21 @@ export const CharacterInfo = observer(
             alt={name}
             className={styles.characterInfo__img}
           />
-          <span className={styles.characterInfo__value}>{balance} G</span>
         </div>
         <div className={styles.characterInfo__right}>
-          <span className={styles.characterInfo__value}>{hp} HP</span>
-          <span className={styles.characterInfo__value}>{experience} EN</span>
-          <span className={styles.characterInfo__value}>{valor} D</span>
+          <span className={styles.characterInfo__value}>
+            {hp} <IconHeart className={styles.characterInfo__icon} />
+          </span>
+          <span className={styles.characterInfo__value}>
+            {experience}{" "}
+            <IconLightning className={styles.characterInfo__icon} />
+          </span>
+          <span className={styles.characterInfo__value}>
+            {valor} <IconShield className={styles.characterInfo__icon} />
+          </span>
+          <span className={styles.characterInfo__value}>
+            {balance} <IconCoin className={styles.characterInfo__icon} />
+          </span>
         </div>
       </div>
     );

@@ -12,6 +12,7 @@ import { Button } from "../../components/Button";
 import { CharacterInfo } from "./components/CharacterInfo";
 
 import styles from "./styles/index.module.scss";
+import { IconThreePoint } from "../../helpers/icons";
 
 interface IMainTitle {
   title?: string;
@@ -48,7 +49,11 @@ export const Main = observer(() => {
           />
         }
         childrenCenter={<MainTitle title={location?.name} />}
-        childrenRight={<Button onClick={onClickMenu}>Меню</Button>}
+        childrenRight={
+          <Button className={styles.buttonMenu} onClick={onClickMenu}>
+            <IconThreePoint className={styles.buttonMenu__icon} />
+          </Button>
+        }
       />
       <main className={styles.main}>
         <section className={styles.main__section}>

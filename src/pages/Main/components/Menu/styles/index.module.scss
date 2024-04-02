@@ -1,3 +1,5 @@
+@import '/src/styles/index';
+
 .menu {
   z-index: 100;
   position: absolute;
@@ -19,9 +21,10 @@
     position: absolute;
     top: 0;
     right: -30%;
+    border-radius: $border-radius 0 0 $border-radius;
     width: 30vw;
     height: 100vh;
-    background-color: #fff;
+    background-color: #ffffff;
   }
 
   &__item {
