@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/await-thenable */
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
@@ -14,24 +13,29 @@ import { SCREENS } from "./navigation/endpoints";
 import styles from "./app.module.scss";
 
 export const App = observer(() => {
-  const [loading, setLoading] = useState(true);
-  const { getUser, tgId } = useUserStore();
+  const { getCharacter, character } = useUserStore();
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      await getUser();
-      setLoading(false);
+      try {
+        await getCharacter();
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    fetchData();
-  }, [getUser]);
+    void fetchData();
+  }, [getCharacter, setIsLoading]);
 
   useEffect(() => {
-    if (!loading && !tgId) {
+    if (!isLoading && !character?.name) {
       navigate(SCREENS.CREATE_CHARACTER);
     }
-  }, [loading, tgId, navigate]);
+  }, [isLoading, character, navigate]);
 
   return (
     <div className={styles.app}>

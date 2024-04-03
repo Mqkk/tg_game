@@ -2,7 +2,7 @@ export const BASE_URL = "http://37.46.134.113:90/api/v1";
 
 export const API = BASE_URL;
 
-export const TOKEN = "10|Eo9LNIopBkyxvbn8LaF4XcHdUaUVzAbTweC19isPcbbf1e66";
+export const TOKEN = "11|VUUjioVkQTa47IG6ilS5NSlnxyttXv5QZx16Ap3Yf28e47a2";
 export const AUTHORIZATION = "/auth/token";
 
 export const USER = "/user";

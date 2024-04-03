@@ -48,12 +48,12 @@ export class CharacterModel implements ICharacterModel {
   }
 
   setData(data: ICharacterModel) {
-    this.setId(data.id);
-    this.setName(data.name);
-    this.setBalance(data.balance);
-    this.setExperience(data.experience);
-    this.setHp(data.hp);
-    this.setValor(data.valor);
-    this.setAppearance(data.appearance.assetPath);
+    this.setId(data?.id);
+    this.setName(data?.name);
+    this.setBalance(data?.balance);
+    this.setExperience(data?.experience);
+    this.setHp(data?.hp);
+    this.setValor(data?.valor);
+    this.setAppearance(data?.appearance.assetPath);
   }
 }
