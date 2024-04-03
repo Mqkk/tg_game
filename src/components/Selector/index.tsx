@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 
 import { Button } from "../Button";
@@ -10,14 +10,19 @@ import { TSelectorList } from "./types";
 import styles from "./styles/index.module.scss";
 
 interface IProps {
+  valueId: number;
   className?: string;
   options: TSelectorList;
   setOption(id: number): void;
 }
 
 export const Selector = observer(
-  ({ options, className = "", setOption }: IProps) => {
+  ({ options, className = "", setOption, valueId }: IProps) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+
+    useEffect(() => {
+      setSelectedIndex(1);
+    }, []);
 
     const selectOption = () => {
       setOption(options[selectedIndex]?.id);
@@ -43,7 +48,7 @@ export const Selector = observer(
           {BACK}
         </Button>
         <span className={styles.selector__value}>
-          {options[selectedIndex]?.name}
+          {options.find((item) => item.id === valueId)?.name}
         </span>
         <Button className={styles.selector__button} onClick={handleNext}>
           {FORWARD}
