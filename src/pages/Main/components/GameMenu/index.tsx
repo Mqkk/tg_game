@@ -13,8 +13,6 @@ export const GameMenu = observer(() => {
     getMenuList();
   }, [getMenuList]);
 
-  console.log(menuList)
-
   return (
     <div className={styles.gameMenu}>
       <ul className={styles.gameMenu__list}>
