@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useCreateCharacterStore } from "../../stores/domains/CreateCharacter";
+import { useAuthorizationStore } from "../../stores/domains/Authorization";
 import { useFractionsStore } from "../../stores/domains/Fractions";
 import { useUserStore } from "../../stores/domains/User";
 
@@ -17,9 +18,10 @@ export const CreateCharacter = observer(() => {
   const { fractionId, onChooseFraction } = useCreateCharacterStore();
   const { fractionList, getFractionList } = useFractionsStore();
   const { character } = useUserStore();
+  const { accessToken } = useAuthorizationStore();
   const navigate = useNavigate();
 
-  if (character) {
+  if (accessToken && character) {
     navigate(SCREENS.MAIN);
   }
 

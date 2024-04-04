@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
-import { API, TOKEN } from "../../constants/api";
+import { API } from "../../constants/api";
 
 import { IAxiosInterceptorResponse, TResponseApi } from "./types";
 import { TNullable } from "../../types";
@@ -47,8 +47,6 @@ class Api implements IApiManager {
     const token = Api._readAccessToken();
     if (token) {
       this._instance.defaults.headers.common.Authorization = `Bearer ${token}`;
-    } else {
-      this._instance.defaults.headers.common.Authorization = `Bearer ${TOKEN}`;
     }
   }
 

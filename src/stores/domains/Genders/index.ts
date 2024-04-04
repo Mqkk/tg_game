@@ -23,7 +23,7 @@ class GenderStore implements IGenderStore {
     try {
       const response: TResponseApi<IGenderListResponse> = yield getGenderList();
       if (response.data !== null) {
-        this.setGenderList(response.data.data);
+        this.setGenderList(response?.data?.data);
       }
     } catch (e) {
       console.error(e);

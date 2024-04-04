@@ -24,7 +24,7 @@ class HairCharacterStore implements IHairCharacterStore {
       const response: TResponseApi<IHairTypeListResponse> =
         yield getHairTypeList();
       if (response.data !== null) {
-        this.setTypeList(response.data.data);
+        this.setTypeList(response?.data?.data);
       }
     } catch (e) {
       console.error(e);
@@ -36,7 +36,7 @@ class HairCharacterStore implements IHairCharacterStore {
       const response: TResponseApi<IHairColorListResponse> =
         yield getHairColorList();
       if (response.data !== null) {
-        this.setColorList(response.data.data);
+        this.setColorList(response?.data?.data);
       }
     } catch (e) {
       console.error(e);

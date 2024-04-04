@@ -32,9 +32,9 @@ class UserStore implements IUserStore {
     try {
       const response: TResponseApi<IUserResponse> = yield getUser();
       if (response.data?.data) {
-        this.setTgId(response.data.data.tgId);
-        this.setLastLogin(response.data.data.lastLogin);
-        this.setTgLogin(response.data.data.tgLogin);
+        this.setTgId(response?.data?.data?.tgId);
+        this.setLastLogin(response?.data?.data?.lastLogin);
+        this.setTgLogin(response?.data?.data?.tgLogin);
       }
     } catch (e) {
       console.error(e);
@@ -45,7 +45,7 @@ class UserStore implements IUserStore {
     try {
       const response: TResponseApi<ICharacterResponse> = yield getCharacter();
       if (response.data !== null) {
-        this.setCharacter(new CharacterModel(response.data.data));
+        this.setCharacter(new CharacterModel(response?.data?.data));
       }
     } catch (e) {
       console.error(e);

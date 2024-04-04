@@ -14,7 +14,7 @@ export const FractionSelection = observer(
   ({ fractions, onChooseFraction }: IProps) => {
     return (
       <ul className={styles.fractionSelection__list}>
-        {fractions.map((item) => (
+        {fractions?.map((item) => (
           <li className={styles.fractionSelection__item} key={item.id}>
             <Fraction
               id={item.id}

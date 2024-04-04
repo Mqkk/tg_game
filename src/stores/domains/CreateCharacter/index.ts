@@ -44,7 +44,7 @@ class CreateCharacterStore implements ICreateCharacterStore {
           this.hairTypeId ?? 0,
         );
       if (response.data !== null) {
-        this.setCharacterAppearancePreset(response.data.data);
+        this.setCharacterAppearancePreset(response?.data?.data);
       }
     } catch (e) {
       console.error(e);

@@ -25,7 +25,7 @@ class GameMenuStore implements IGameMenuStore {
       const response: TResponseApi<IMenuItemListResponse> = yield getMenu();
       if (response.data !== null) {
         this.setMenuList(
-          response.data.data.map((item) => new GameMenuItemModel(item, "/")),
+          response?.data?.data?.map((item) => new GameMenuItemModel(item, "/")),
         );
       }
     } catch (e) {

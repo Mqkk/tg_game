@@ -27,7 +27,7 @@ class FractionsStore implements IFractionsStore {
         yield getFractionList();
       if (response?.data) {
         this.setFractionList(
-          response.data.data.map((item) => new FractionModel(item)),
+          response?.data?.data?.map((item) => new FractionModel(item)),
         );
       }
     } catch (e) {

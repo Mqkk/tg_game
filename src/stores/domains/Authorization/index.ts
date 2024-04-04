@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
 import { IAuthorizationStore } from "./types";
-import { TResponseApi } from "../../../helpers/apiManager/types";
 
 class AuthorizationStore implements IAuthorizationStore {
   accessToken: string = "";
@@ -12,12 +11,23 @@ class AuthorizationStore implements IAuthorizationStore {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  logout(): void {}
+  getToken() {
+    const queryString = window.location.search;
+    let name = "token";
 
-  sendAuthorization(): void {}
+    if (!queryString) return null;
+    name = name.replace(/[[\]]/g, "\\$&");
+    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(queryString);
+    if (!results) return null;
+    if (!results[2]) return "";
 
-  saveDataToLocalStorage(response: TResponseApi<never>): void {
-    response;
+    this.setAccessToken(decodeURIComponent(results[2].replace(/\+/g, " ")));
+    localStorage.setItem("accessToken", this.accessToken);
+  }
+
+  setAccessToken(value: string) {
+    this.accessToken = value;
   }
 }
 

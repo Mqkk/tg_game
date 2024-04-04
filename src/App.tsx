@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 import { observer } from "mobx-react-lite";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useUserStore } from "./stores/domains/User";
+import { useAuthorizationStore } from "./stores/domains/Authorization";
 
 import { Navigation } from "./navigation";
 import OrientationNotification from "./components/OrientationNotification";
@@ -13,9 +14,16 @@ import { SCREENS } from "./navigation/endpoints";
 import styles from "./app.module.scss";
 
 export const App = observer(() => {
+  const { getToken, accessToken } = useAuthorizationStore();
   const { getCharacter, character } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    if (!accessToken) {
+      getToken();
+    }
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,10 +40,10 @@ export const App = observer(() => {
   }, [getCharacter, setIsLoading]);
 
   useEffect(() => {
-    if (!isLoading && !character?.name) {
+    if (!isLoading && !character?.name && accessToken) {
       navigate(SCREENS.CREATE_CHARACTER);
     }
-  }, [isLoading, character, navigate]);
+  }, [isLoading, character, navigate, accessToken]);
 
   return (
     <div className={styles.app}>

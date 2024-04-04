@@ -36,7 +36,7 @@ class LocationStore implements ILocationStore {
         yield getLocationObjectById(locationId);
       if (response.data !== null) {
         this.setObjectList(
-          response.data.data.map((item) => new LocationObjectModel(item)),
+          response?.data?.data?.map((item) => new LocationObjectModel(item)),
         );
       }
     } catch (e) {
@@ -50,7 +50,7 @@ class LocationStore implements ILocationStore {
         yield getAvailableLocationList();
       if (response.data !== null) {
         this.setLocationList(
-          response.data.data.map((item) => new LocationModel(item)),
+          response?.data?.data?.map((item) => new LocationModel(item)),
         );
       }
     } catch (e) {
@@ -63,7 +63,7 @@ class LocationStore implements ILocationStore {
       const response: TResponseApi<ILocationResponse> =
         yield getLocationById(id);
       if (response.data !== null) {
-        this.setLocation(response.data.data);
+        this.setLocation(response?.data?.data);
       }
     } catch (e) {
       console.error(e);
