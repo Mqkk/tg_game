@@ -12,8 +12,10 @@ interface IProps {
 export const Location = observer(
   ({ assetPath = "", objectList = [] }: IProps) => {
     return (
-      <div className={styles.location}>
-        <img className={styles.location__img} src={assetPath} />
+      <div
+        className={styles.location}
+        style={{ backgroundImage: `url('${assetPath}` }}
+      >
         <div className={styles.location__objects}>
           <LocationObject img={objectList[0]?.assetPath} />
         </div>
