@@ -2,10 +2,10 @@ import { makeAutoObservable } from "mobx";
 import { useState } from "react";
 
 import { IAuthorizationStore } from "./types";
+import { TNullable } from "../../../types";
 
 class AuthorizationStore implements IAuthorizationStore {
-  accessToken: string = "";
-  tokenType: string = "";
+  accessToken: TNullable<string> = "";
 
   constructor() {
     makeAutoObservable(this, {}, { autoBind: true });
@@ -13,20 +13,25 @@ class AuthorizationStore implements IAuthorizationStore {
 
   getToken() {
     const queryString = window.location.search;
-    let name = "token";
+    const tokenParam = "token=";
 
     if (!queryString) return null;
-    name = name.replace(/[[\]]/g, "\\$&");
-    const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-      results = regex.exec(queryString);
-    if (!results) return null;
-    if (!results[2]) return "";
 
-    this.setAccessToken(decodeURIComponent(results[2].replace(/\+/g, " ")));
-    localStorage.setItem("accessToken", this.accessToken);
+    const tokenIndex = queryString.indexOf(tokenParam);
+
+    if (tokenIndex === -1) return null;
+
+    const tokenStart = tokenIndex + tokenParam.length;
+    const token = queryString.substring(tokenStart);
+
+    localStorage.setItem("accessToken", decodeURIComponent(token));
   }
 
-  setAccessToken(value: string) {
+  saveToken() {
+    this.setAccessToken(localStorage.getItem("accessToken"));
+  }
+
+  setAccessToken(value: TNullable<string>) {
     this.accessToken = value;
   }
 }

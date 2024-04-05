@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
-import { SCREENS } from "../../../../navigation/endpoints";
 
 import styles from "./styles/index.module.scss";
 
@@ -18,10 +17,10 @@ export const Menu = observer(({ isOpen, onClose }: IProps) => {
         <li className={styles.menu__item}>
           <Link
             className={styles.menu__link}
-            to={SCREENS.CREATE_CHARACTER}
+            to={'/'}
             onClick={onClose}
           >
-            На главную
+            Назад
           </Link>
         </li>
       </ul>

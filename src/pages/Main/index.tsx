@@ -43,7 +43,7 @@ export const Main = observer(() => {
     };
 
     void fetchData();
-  }, [init, getCharacter, setIsLoading]);
+  }, []);
 
   const onClickMenu = () => {
     setIsOpen(!isOpen);

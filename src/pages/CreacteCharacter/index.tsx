@@ -17,17 +17,17 @@ import styles from "./styles/index.module.scss";
 export const CreateCharacter = observer(() => {
   const { fractionId, onChooseFraction } = useCreateCharacterStore();
   const { fractionList, getFractionList } = useFractionsStore();
-  const { character } = useUserStore();
   const { accessToken } = useAuthorizationStore();
+  const { character } = useUserStore();
   const navigate = useNavigate();
-
-  if (accessToken && character) {
-    navigate(SCREENS.MAIN);
-  }
 
   useEffect(() => {
     getFractionList();
-  }, [getFractionList]);
+
+    if (accessToken && character?.name) {
+      navigate(SCREENS.MAIN);
+    }
+  }, [getFractionList, character?.name]);
 
   const isFractionSelect = useMemo(() => Boolean(fractionId), [fractionId]);
 

@@ -1,5 +1,7 @@
+import { TNullable } from "../../../types";
+
 export interface IAuthorizationStore {
-  accessToken: string;
-  tokenType: string;
+  accessToken: TNullable<string>;
   getToken(): void;
+  saveToken(): void;
 }

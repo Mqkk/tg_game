@@ -7,6 +7,7 @@ import { useUserStore } from "./stores/domains/User";
 import { useAuthorizationStore } from "./stores/domains/Authorization";
 
 import { Navigation } from "./navigation";
+import { Loading } from "./components/Loading";
 import OrientationNotification from "./components/OrientationNotification";
 
 import { SCREENS } from "./navigation/endpoints";
@@ -14,7 +15,7 @@ import { SCREENS } from "./navigation/endpoints";
 import styles from "./app.module.scss";
 
 export const App = observer(() => {
-  const { getToken, accessToken } = useAuthorizationStore();
+  const { getToken, accessToken, saveToken } = useAuthorizationStore();
   const { getCharacter, character } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -22,8 +23,9 @@ export const App = observer(() => {
   useLayoutEffect(() => {
     if (!accessToken) {
       getToken();
+      saveToken();
     }
-  });
+  }, [accessToken]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,19 +39,19 @@ export const App = observer(() => {
     };
 
     void fetchData();
-  }, [getCharacter, setIsLoading]);
+  }, []);
 
   useEffect(() => {
     if (!isLoading && !character?.name && accessToken) {
       navigate(SCREENS.CREATE_CHARACTER);
     }
-  }, [isLoading, character, navigate, accessToken]);
+  }, [character]);
 
   return (
     <div className={styles.app}>
       <div className={styles.app__wrapper}>
         <OrientationNotification>
-          <Navigation />
+          {!accessToken ? <Loading /> : <Navigation />}
         </OrientationNotification>
       </div>
     </div>
